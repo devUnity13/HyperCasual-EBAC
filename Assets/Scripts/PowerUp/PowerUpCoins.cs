@@ -15,7 +15,7 @@ public class PowerUpCoins : PowerUpBase
     protected override void StartPowerUp()
     {
         base.StartPowerUp();
-        PlayerController.instance.CollectAllCoins(upScale);
+        PlayerController.instance.CollectAllCoins("<Greedy/>", upScale);
         Invoke(nameof(EndPowerUp), duration);
     }
 

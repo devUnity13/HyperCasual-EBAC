@@ -127,13 +127,15 @@ public class PlayerController : Singleton<PlayerController>
         transform.DOMoveY(_startPosition.y, animDuration).SetEase(ease);
     }
 
-    public void CollectAllCoins(float expand)
+    public void CollectAllCoins(string status, float expand)
     {
+        textPowerUp.text = status;
         collectableCoin.radius += expand;
     }
 
     public void ResetCollectAllCoins()
     {
+        textPowerUp.text = "";
         collectableCoin.radius = _startRadius;
     }
 }
