@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemCollactableBase : MonoBehaviour
 {
-    public string comparetag = "Player";
+    public string comparetag = "";
     //public new ParticleSystem particleSystem;
     public float timeToHide = .25f;
     public GameObject graphicItem;
@@ -28,12 +28,16 @@ public class ItemCollactableBase : MonoBehaviour
 
     protected virtual void Collect()
     {
-        if(graphicItem != null) graphicItem.SetActive(false);
-        Invoke(nameof(Hide), timeToHide);
         OnCollect();
     }
 
-    private void Hide()
+    public void Hide()
+    {
+        if (graphicItem != null) graphicItem.SetActive(false);
+        Invoke(nameof(HideObject), timeToHide);
+    }
+
+    protected virtual void HideObject()
     {
         gameObject.SetActive(false);
     }

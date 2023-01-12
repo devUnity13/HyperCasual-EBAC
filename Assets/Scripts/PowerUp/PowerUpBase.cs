@@ -11,13 +11,13 @@ public class PowerUpBase : ItemCollactableBase
         StartPowerUp();
     }
 
-    protected void StartPowerUp()
+    protected virtual void StartPowerUp()
     {
         Debug.Log("Nice PowerUp!");
         Invoke(nameof(EndPowerUp), duration);
     }
 
-    protected void EndPowerUp()
+    protected virtual void EndPowerUp()
     {
         Debug.Log("Acabou PowerUp!");
     }
