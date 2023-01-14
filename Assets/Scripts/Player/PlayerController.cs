@@ -18,6 +18,7 @@ public class PlayerController : Singleton<PlayerController>
     public bool invencible = false;
     public TextMeshProUGUI textPowerUp;
     public SphereCollider collectableCoin;
+    public AnimationManager animatorManager;
 
     //Variaveis privadas
     private Vector3 _pos;
@@ -25,18 +26,20 @@ public class PlayerController : Singleton<PlayerController>
     private float _startRadius;
     private bool _canRun = false;
     private float _currentSpeed;
+    private float _baseSpeedToAnimation = 7;
 
-    private void Start()
+	private void Start()
     {
         _startPosition = transform.position;
         _startRadius = collectableCoin.radius;
-        ResetSpeed("");
+		animatorManager = GameObject.Find("ANIM_Astronaut_Idle").GetComponent<AnimationManager>();
+		animatorManager.Play(AnimationManager.AnimationType.idle);
+		ResetSpeed("");
     }
 
     void Update()
     {
         if (!_canRun) return;
-
         _pos = target.position;
         _pos.y = transform.position.y;
         _pos.z = transform.position.z;
@@ -52,9 +55,11 @@ public class PlayerController : Singleton<PlayerController>
             if (!invencible)
             {
                 _canRun = false;
-                EndGame();
-                Debug.Log("GameOver!");
-            }
+                MoveBack();
+				EndGame(AnimationManager.AnimationType.death);
+				Debug.Log("GameOver!");
+				Screen[1].SetActive(true);
+			}
         }
     }
 
@@ -63,24 +68,29 @@ public class PlayerController : Singleton<PlayerController>
         if(collision.transform.tag == TagFinish)
         {
             _canRun = false;
-            EndGame();
-            Debug.Log("Você Venceu!");
+            EndGame(AnimationManager.AnimationType.finish);
+			Debug.Log("Você Venceu!");
         }
+    }
+
+    private void MoveBack()
+    {
+        transform.DOMoveZ(-1f, .3f).SetRelative();
     }
     public void StartGame()
     {
         _canRun = true;
-        Screen[0].SetActive(false);
+		animatorManager.Play(AnimationManager.AnimationType.run, _currentSpeed / _baseSpeedToAnimation);
+		Screen[0].SetActive(false);
         if (Screen[1])
         {
             Screen[1].SetActive(false);
         }
+	}
 
-    }
-
-    public void EndGame()
+    public void EndGame(AnimationManager.AnimationType aniimationType = AnimationManager.AnimationType.idle)
     {
-        Screen[1].SetActive(true);
+        animatorManager.Play(aniimationType);
     }
 
     public void IncreaseSpeed(string status, float amount)
