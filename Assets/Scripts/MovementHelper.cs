@@ -6,11 +6,14 @@ public class MovementHelper : MonoBehaviour
 {
     public List<Transform> positions;
     public float duration = 1f;
-
     private int _index = 0;
+
+    private PlayerController _playerController;
     private void Start()
     {
-        transform.position = positions[_index].position;
+        var initialPosition = Random.Range(0, positions.Count);
+        transform.position = positions[initialPosition].position;
+
         NextIndex();
         StartCoroutine(StartMovement());
     }
@@ -28,7 +31,7 @@ public class MovementHelper : MonoBehaviour
         {
             var currentPosition = transform.position;
 
-            while(time < duration)
+            while (time < duration)
             {
                 transform.position = Vector3.Lerp(currentPosition, positions[_index].position, (time / duration));
 

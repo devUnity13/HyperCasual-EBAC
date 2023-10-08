@@ -24,7 +24,7 @@ public class PlayerController : Singleton<PlayerController>
     private Vector3 _pos;
     private Vector3 _startPosition;
     private float _startRadius;
-    private bool _canRun = false;
+    public bool _canRun = false;
     private float _currentSpeed;
     private float _baseSpeedToAnimation = 7;
 
