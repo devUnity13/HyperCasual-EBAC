@@ -4,43 +4,45 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    public List<Material> materials;
-    public List<Color> enemiesColors;
-    public List<Color> groundColors;
+    public Transform container;
     public List<GameObject> levels;
-    public Transform target;
 
-    void Start()
+    [SerializeField]private int _index;
+    private GameObject _currentLevel;
+
+    private void Awake()
     {
-        ChangeColors();
+        SpawnNextLevel();
+    }
 
-        for (int i = 0; i < enemiesColors.Count; i++)
+    private void SpawnNextLevel()
+    {
+
+        if(_currentLevel != null)
         {
-            var colorEnemye = Random.Range(0, enemiesColors.Count - 1);
-            var colorGround = Random.Range(0, groundColors.Count - 1);
+            Destroy(_currentLevel);
+            _index++;
 
-            materials[0].SetColor("_Color", enemiesColors[colorEnemye]);
-            materials[1].SetColor("_Color", groundColors[colorGround]);
+            if(_index >= levels.Count)
+            {
+                ResetLevelIndex();
+            }
         }
 
-        int randomLevel = Random.Range(0, levels.Count);
-
-        Instantiate(levels[randomLevel], target.transform.position, Quaternion.identity, target.transform);
-
-        Debug.Log("Level: " + randomLevel);
+        _currentLevel = Instantiate(levels[_index], container);
+        _currentLevel.transform.localPosition = Vector3.zero;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void ResetLevelIndex()
     {
-
+        _index = 0;
     }
 
-    void ChangeColors()
+    private void Update()
     {
-        for (int i = 0; i < materials.Count; i++)
+        if (Input.GetKeyDown(KeyCode.D))
         {
-            materials[i].SetColor("_Color", Color.blue);
+            SpawnNextLevel();
         }
     }
 }
