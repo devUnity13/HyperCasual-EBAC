@@ -85,7 +85,7 @@ public class LevelManager : MonoBehaviour
 
         if (_spawnedPieces.Count > 0)
         {
-            var lastPiece = _spawnedPieces[_spawnedPieces.Count - 1];
+            var lastPiece = _spawnedPieces[^1];
 
             spawnedPiece.transform.position = lastPiece.endPiece.position;
         }
@@ -93,6 +93,12 @@ public class LevelManager : MonoBehaviour
         {
             spawnedPiece.transform.localPosition = Vector3.zero;
         }
+
+        foreach (var p in spawnedPiece.GetComponentsInChildren<ArtPiece>())
+        {
+            p.ChangePiece(ArtManager.instance.GetArtSetupByType(_currentSetup.artType).gameObject);
+        }
+
         _spawnedPieces.Add(spawnedPiece);
     }
 
