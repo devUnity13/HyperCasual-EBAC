@@ -317,7 +317,7 @@ Transform:
   m_GameObject: {fileID: 201628539}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -2.2, y: 0, z: -42.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -338,7 +338,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   container: {fileID: 0}
   levels: []
+  levelSetups: []
+  timeBetweenPiece: 0.3
   _index: 0
+  _spawnedPieces: []
 --- !u!1 &282528779
 GameObject:
   m_ObjectHideFlags: 0
@@ -1361,7 +1364,12 @@ MonoBehaviour:
   - {fileID: 4466943970774177865, guid: 52ac8caba1f44494995845ba5d7baf64, type: 3}
   - {fileID: 4469329286447518461, guid: e89491c013eac0a45b54f8cdb291cf3d, type: 3}
   - {fileID: 2051214565065048593, guid: 36a793ff406b7e044b4f2ded702f6811, type: 3}
+  levelSetups:
+  - {fileID: 11400000, guid: 0b3583bb395d12a4695fca435b092d54, type: 2}
+  - {fileID: 11400000, guid: 69c022330b3c5ce45ba745cdd2eb3087, type: 2}
+  timeBetweenPiece: 0.3
   _index: 0
+  _spawnedPieces: []
 --- !u!4 &1372118608
 Transform:
   m_ObjectHideFlags: 0
