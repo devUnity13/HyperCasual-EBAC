@@ -20,7 +20,7 @@ public class PlayerController : Singleton<PlayerController>
     public SphereCollider collectableCoin;
     public AnimationManager animatorManager;
 
-    [SerializeField]private BounceHelper _bouceHelper;
+    [SerializeField] private BounceHelper _bouceHelper;
 
     //Variaveis privadas
     private Vector3 _pos;
@@ -30,18 +30,18 @@ public class PlayerController : Singleton<PlayerController>
     private float _currentSpeed;
     private float _baseSpeedToAnimation = 7;
 
-	private void Start()
+    private void Start()
     {
         _startPosition = transform.position;
         _startRadius = collectableCoin.radius;
-		animatorManager = GameObject.Find("ANIM_Astronaut_Idle").GetComponent<AnimationManager>();
-		animatorManager.Play(AnimationManager.AnimationType.idle);
-		ResetSpeed("");
+        animatorManager = GameObject.Find("ANIM_Astronaut_Idle").GetComponent<AnimationManager>();
+        animatorManager.Play(AnimationManager.AnimationType.idle);
+        ResetSpeed("");
     }
 
     public void Bounce()
     {
-        if(_bouceHelper != null)
+        if (_bouceHelper != null)
             _bouceHelper.Bounce();
     }
 
@@ -58,26 +58,26 @@ public class PlayerController : Singleton<PlayerController>
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.transform.tag == tagEnemy)
+        if (collision.transform.tag == tagEnemy)
         {
             if (!invencible)
             {
                 _canRun = false;
                 MoveBack();
-				EndGame(AnimationManager.AnimationType.death);
-				Debug.Log("GameOver!");
-				Screen[1].SetActive(true);
-			}
+                EndGame(AnimationManager.AnimationType.death);
+                Debug.Log("GameOver!");
+                Screen[1].SetActive(true);
+            }
         }
     }
 
     private void OnTriggerExit(Collider collision)
     {
-        if(collision.transform.tag == TagFinish)
+        if (collision.transform.tag == TagFinish)
         {
             _canRun = false;
             EndGame(AnimationManager.AnimationType.finish);
-			Debug.Log("Você Venceu!");
+            Debug.Log("Você Venceu!");
         }
     }
 
@@ -88,13 +88,13 @@ public class PlayerController : Singleton<PlayerController>
     public void StartGame()
     {
         _canRun = true;
-		animatorManager.Play(AnimationManager.AnimationType.run, _currentSpeed / _baseSpeedToAnimation);
-		Screen[0].SetActive(false);
+        animatorManager.Play(AnimationManager.AnimationType.run, _currentSpeed / _baseSpeedToAnimation);
+        Screen[0].SetActive(false);
         if (Screen[1])
         {
             Screen[1].SetActive(false);
         }
-	}
+    }
 
     public void EndGame(AnimationManager.AnimationType aniimationType = AnimationManager.AnimationType.idle)
     {
