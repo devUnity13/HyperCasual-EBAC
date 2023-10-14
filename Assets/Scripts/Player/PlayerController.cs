@@ -20,6 +20,8 @@ public class PlayerController : Singleton<PlayerController>
     public SphereCollider collectableCoin;
     public AnimationManager animatorManager;
 
+    [SerializeField]private BounceHelper _bouceHelper;
+
     //Variaveis privadas
     private Vector3 _pos;
     private Vector3 _startPosition;
@@ -35,6 +37,12 @@ public class PlayerController : Singleton<PlayerController>
 		animatorManager = GameObject.Find("ANIM_Astronaut_Idle").GetComponent<AnimationManager>();
 		animatorManager.Play(AnimationManager.AnimationType.idle);
 		ResetSpeed("");
+    }
+
+    public void Bounce()
+    {
+        if(_bouceHelper != null)
+            _bouceHelper.Bounce();
     }
 
     void Update()

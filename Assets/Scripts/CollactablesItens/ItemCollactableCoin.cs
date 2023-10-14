@@ -10,9 +10,13 @@ public class ItemCollactableCoin : ItemCollactableBase
     public float timeLerp = 1f;
     public float distanceDifference = 10;
 
-    private void Start()
+    private void Awake()
     {
         playerController = GameObject.Find("CollectorCoin").GetComponent<SphereCollider>();
+    }
+    private void Start()
+    {
+        CoinsAnimationManager.instance.RegisterCoin(this);
     }
 
     protected override void OnCollect()
@@ -20,6 +24,7 @@ public class ItemCollactableCoin : ItemCollactableBase
         base.OnCollect();
         coll.enabled = false;
         collect = true;
+        PlayerController.instance.Bounce();
     }
 
     protected override void Collect()

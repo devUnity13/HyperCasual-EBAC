@@ -101,6 +101,8 @@ public class LevelManager : MonoBehaviour
             _spawnedPieces[i].transform.DOScale(1f, scaleDuration).SetEase(ease);
             yield return new WaitForSeconds(scaleTimeBetweenPiece);
         }
+
+        CoinsAnimationManager.instance.StartAnimations();
     }
 
     private void CreateLevelPiece(List<LevelPieceBase> list)
