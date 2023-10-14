@@ -7,8 +7,6 @@ public class MovementHelper : MonoBehaviour
     public List<Transform> positions;
     public float duration = 1f;
     private int _index = 0;
-
-    private PlayerController _playerController;
     private void Start()
     {
         var initialPosition = Random.Range(0, positions.Count);
