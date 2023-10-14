@@ -6,23 +6,23 @@ public class TouchController : MonoBehaviour
 {
     public Vector2 pastPosition;
     public float velocity = 1f;
-    private float _sideLimit = 4.5f;
+    private float _sideLimit = 4.4f;
 
-    private void Update() 
+    private void Update()
     {
-        if(Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0))
         {
             Move(Input.mousePosition.x - pastPosition.x);
         }
         pastPosition = Input.mousePosition;
 
-        if(transform.position.x > _sideLimit)
+        if (transform.position.x > _sideLimit)
         {
-            transform.position = new Vector3(_sideLimit,0,0);
+            transform.position = new Vector3(_sideLimit, 0, 0);
         }
-        else if(transform.position.x < -_sideLimit)
+        else if (transform.position.x < -_sideLimit)
         {
-            transform.position = new Vector3(-_sideLimit,0,0);
+            transform.position = new Vector3(-_sideLimit, 0, 0);
         }
     }
 
