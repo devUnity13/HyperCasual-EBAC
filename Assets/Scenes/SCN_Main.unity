@@ -1270,7 +1270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pastPosition: {x: 0, y: 0}
-  velocity: 1
+  velocity: 0.8
 --- !u!4 &1144085597 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7217276771096645968, guid: 52ac8caba1f44494995845ba5d7baf64, type: 3}
