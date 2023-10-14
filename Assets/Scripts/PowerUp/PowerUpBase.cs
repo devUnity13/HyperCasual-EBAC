@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,11 +15,13 @@ public class PowerUpBase : ItemCollactableBase
     protected virtual void StartPowerUp()
     {
         Debug.Log("Nice PowerUp!");
+        PlayerController.instance.Bounce();
         Invoke(nameof(EndPowerUp), duration);
     }
 
     protected virtual void EndPowerUp()
     {
         Debug.Log("Acabou PowerUp!");
+        PlayerController.instance.transform.localScale = Vector3.one;
     }
 }

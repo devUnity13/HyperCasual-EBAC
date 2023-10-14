@@ -29,7 +29,6 @@ public class PlayerController : Singleton<PlayerController>
     public bool _canRun = false;
     private float _currentSpeed;
     private float _baseSpeedToAnimation = 7;
-
     private void Start()
     {
         _startPosition = transform.position;
@@ -37,6 +36,7 @@ public class PlayerController : Singleton<PlayerController>
         animatorManager = GameObject.Find("ANIM_Astronaut_Idle").GetComponent<AnimationManager>();
         animatorManager.Play(AnimationManager.AnimationType.idle);
         ResetSpeed("");
+
     }
 
     public void Bounce()
@@ -65,8 +65,18 @@ public class PlayerController : Singleton<PlayerController>
                 _canRun = false;
                 MoveBack();
                 EndGame(AnimationManager.AnimationType.death);
+
+                collision.gameObject.transform.DOScale(3, 1f).SetEase(Ease.InElastic);
+                var mov = collision.gameObject.GetComponent<MovementHelper>();
+
+                mov.positions.RemoveAt(1);
+                mov.positions.RemoveAt(0);
+
+                Destroy(collision.gameObject, 1.1f);
+
                 Debug.Log("GameOver!");
                 Screen[1].SetActive(true);
+                transform.GetComponent<Collider>().isTrigger = true;
             }
         }
     }

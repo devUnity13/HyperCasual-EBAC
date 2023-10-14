@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class AnimationManager : MonoBehaviour
 {
@@ -8,8 +9,14 @@ public class AnimationManager : MonoBehaviour
     public List<AnimationSetup> animatorSetup;
     private PlayerController playerController;
 
-	private void Start()
+    private void Awake()
+    {
+        transform.localScale = Vector3.zero;
+    }
+
+    private void Start()
 	{
+        transform.DOScale(1, 1f).SetEase(Ease.Linear);
         playerController = GameObject.
             Find("PlayerContainer").
             GetComponent<PlayerController>();
