@@ -34,19 +34,15 @@ public class ItemCollactableCoin : ItemCollactableBase
 
     private void Update()
     {
-
-        if (collect)
+        if(collect)
         {
-            LerpCoins();
-        }
-    }
+            transform.position = Vector3.Lerp(transform.position, playerController.transform.position, timeLerp * Time.deltaTime);
 
-    protected virtual void LerpCoins()
-    {
-        transform.position = Vector3.Lerp(transform.position, playerController.transform.position, timeLerp * Time.deltaTime);
-        if(Vector3.Distance(transform.position, playerController.transform.position) < distanceDifference)
-        {
-            Hide();
+            if(Vector3.Distance(transform.position, playerController.transform.position) < distanceDifference)
+            {
+                Hide();
+                Destroy(gameObject);
+            }
         }
     }
 }
