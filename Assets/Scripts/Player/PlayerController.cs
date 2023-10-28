@@ -19,6 +19,7 @@ public class PlayerController : Singleton<PlayerController>
     public TextMeshProUGUI textPowerUp;
     public SphereCollider collectableCoin;
     public AnimationManager animatorManager;
+    public ParticleSystem vfxDeath;
 
     [SerializeField] private BounceHelper _bouceHelper;
 
@@ -87,7 +88,7 @@ public class PlayerController : Singleton<PlayerController>
         {
             _canRun = false;
             EndGame(AnimationManager.AnimationType.finish);
-            Debug.Log("Você Venceu!");
+            Debug.Log("Vocï¿½ Venceu!");
         }
     }
 
@@ -108,7 +109,10 @@ public class PlayerController : Singleton<PlayerController>
 
     public void EndGame(AnimationManager.AnimationType aniimationType = AnimationManager.AnimationType.idle)
     {
+        _canRun = false;
+        Screen[0].SetActive(true);
         animatorManager.Play(aniimationType);
+        if(vfxDeath != null) vfxDeath.Play();
     }
 
     public void IncreaseSpeed(string status, float amount)
