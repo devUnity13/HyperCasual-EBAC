@@ -65,6 +65,7 @@ public class PlayerController : Singleton<PlayerController>
             {
                 _canRun = false;
                 MoveBack();
+                if(vfxDeath != null) vfxDeath.Play();
                 EndGame(AnimationManager.AnimationType.death);
 
                 collision.gameObject.transform.DOScale(3, 1f).SetEase(Ease.InElastic);
@@ -109,10 +110,7 @@ public class PlayerController : Singleton<PlayerController>
 
     public void EndGame(AnimationManager.AnimationType aniimationType = AnimationManager.AnimationType.idle)
     {
-        _canRun = false;
-        Screen[0].SetActive(true);
         animatorManager.Play(aniimationType);
-        if(vfxDeath != null) vfxDeath.Play();
     }
 
     public void IncreaseSpeed(string status, float amount)
