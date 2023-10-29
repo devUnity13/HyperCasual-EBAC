@@ -5,11 +5,11 @@ using UnityEngine;
 public class PowerUpCoins : PowerUpBase
 {
     public float upScale = 10;
-
     protected override void OnCollect()
     {
         base.OnCollect();
         HideObject();
+        particleSystem.Stop();
     }
 
     protected override void StartPowerUp()

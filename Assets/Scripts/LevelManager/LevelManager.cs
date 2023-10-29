@@ -19,11 +19,19 @@ public class LevelManager : MonoBehaviour
     public float scaleDuration = .2f;
     public float scaleTimeBetweenPiece = .1f;
     public Ease ease = Ease.OutBack;
+
+    [Header("Audios")]
+    public AudioSource music;
     private void Awake()
     {
         //SpawnNextLevel();
         //StartCoroutine(nameof(CreateLevelPiecesCoroutine));
         CreateLevelPieces();
+    }
+
+    private void Start() 
+    {
+        if(music != null) music.Play();
     }
 
     private void SpawnNextLevel()
@@ -103,6 +111,11 @@ public class LevelManager : MonoBehaviour
         }
 
         CoinsAnimationManager.instance.StartAnimations();
+
+        var startScreen = PlayerController.instance.Screen[0];
+        startScreen.transform.localScale = Vector3.zero;
+        startScreen.SetActive(true);
+        startScreen.transform.DOScale(1, 1f).SetEase(ease);
     }
 
     private void CreateLevelPiece(List<LevelPieceBase> list)

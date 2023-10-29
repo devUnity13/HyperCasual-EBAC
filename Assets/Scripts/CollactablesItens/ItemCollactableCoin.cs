@@ -41,7 +41,6 @@ public class ItemCollactableCoin : ItemCollactableBase
             if(Vector3.Distance(transform.position, playerController.transform.position) < distanceDifference)
             {
                 Hide();
-                Destroy(gameObject);
             }
         }
     }

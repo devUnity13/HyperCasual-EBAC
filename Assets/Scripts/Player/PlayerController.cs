@@ -19,7 +19,12 @@ public class PlayerController : Singleton<PlayerController>
     public TextMeshProUGUI textPowerUp;
     public SphereCollider collectableCoin;
     public AnimationManager animatorManager;
+    public ParticleSystem PowerUpGreedy;
+
+    [Header("VFX and Audio")]
     public ParticleSystem vfxDeath;
+    public AudioSource deathFxSound;
+    public AudioSource winnerVfx;
 
     [SerializeField] private BounceHelper _bouceHelper;
 
@@ -30,6 +35,11 @@ public class PlayerController : Singleton<PlayerController>
     public bool _canRun = false;
     private float _currentSpeed;
     private float _baseSpeedToAnimation = 7;
+
+    private void OnValidate() 
+    {
+        Screen[0].SetActive(false);
+    }
     private void Start()
     {
         _startPosition = transform.position;
@@ -37,7 +47,6 @@ public class PlayerController : Singleton<PlayerController>
         animatorManager = GameObject.Find("ANIM_Astronaut_Idle").GetComponent<AnimationManager>();
         animatorManager.Play(AnimationManager.AnimationType.idle);
         ResetSpeed("");
-
     }
 
     public void Bounce()
@@ -66,6 +75,7 @@ public class PlayerController : Singleton<PlayerController>
                 _canRun = false;
                 MoveBack();
                 if(vfxDeath != null) vfxDeath.Play();
+                if(deathFxSound != null) deathFxSound.Play();
                 EndGame(AnimationManager.AnimationType.death);
 
                 collision.gameObject.transform.DOScale(3, 1f).SetEase(Ease.InElastic);
@@ -77,7 +87,6 @@ public class PlayerController : Singleton<PlayerController>
                 Destroy(collision.gameObject, 1.1f);
 
                 Debug.Log("GameOver!");
-                Screen[1].SetActive(true);
                 transform.GetComponent<Collider>().isTrigger = true;
             }
         }
@@ -88,6 +97,7 @@ public class PlayerController : Singleton<PlayerController>
         if (collision.transform.tag == TagFinish)
         {
             _canRun = false;
+            if(winnerVfx != null) winnerVfx.Play();
             EndGame(AnimationManager.AnimationType.finish);
             Debug.Log("Voc� Venceu!");
         }
@@ -102,15 +112,15 @@ public class PlayerController : Singleton<PlayerController>
         _canRun = true;
         animatorManager.Play(AnimationManager.AnimationType.run, _currentSpeed / _baseSpeedToAnimation);
         Screen[0].SetActive(false);
-        if (Screen[1])
-        {
-            Screen[1].SetActive(false);
-        }
     }
 
     public void EndGame(AnimationManager.AnimationType aniimationType = AnimationManager.AnimationType.idle)
     {
         animatorManager.Play(aniimationType);
+        var endScreen = Screen[1];
+        endScreen.transform.localScale = Vector3.zero;
+        endScreen.SetActive(true);
+        endScreen.transform.DOScale(1, 1f).SetEase(Ease.OutBack);
     }
 
     public void IncreaseSpeed(string status, float amount)
@@ -161,6 +171,7 @@ public class PlayerController : Singleton<PlayerController>
     {
         textPowerUp.text = status;
         collectableCoin.radius += expand;
+        PowerUpGreedy.Play();
     }
 
     public void ResetCollectAllCoins()
