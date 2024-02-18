@@ -1,0 +1,4 @@
+repository "HyperCasual-EBAC@DevRudyGG@cloud"
+  path "/"
+    br "/main"
+    co "/main"
