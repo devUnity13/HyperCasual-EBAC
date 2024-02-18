@@ -35,11 +35,6 @@ public class PlayerController : Singleton<PlayerController>
     public bool _canRun = false;
     private float _currentSpeed;
     private float _baseSpeedToAnimation = 7;
-
-    private void OnValidate() 
-    {
-        Screen[0].SetActive(false);
-    }
     private void Start()
     {
         _startPosition = transform.position;

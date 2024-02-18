@@ -24,8 +24,6 @@ public class LevelManager : MonoBehaviour
     public AudioSource music;
     private void Awake()
     {
-        //SpawnNextLevel();
-        //StartCoroutine(nameof(CreateLevelPiecesCoroutine));
         CreateLevelPieces();
     }
 
